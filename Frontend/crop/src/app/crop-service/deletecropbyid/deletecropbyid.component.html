@@ -1,0 +1,54 @@
+<p>deletecropbyid works!</p>
+
+<div class="row card-group">
+    
+    <div class=col-4>
+    <div class="card"  >
+      <div class="card-body d-flex flex-row">
+        <img src="https://www.bajajallianz.com/content/dam/bagic/pradhan-mantri-yojna/weather-based-crop.png" class="rounded-circle me-3" height="50px"
+          width="50px" alt="avatar" />
+        <div>
+          <h5 class="card-title font-weight-bold mb-2">{{crop.cropName}}</h5>
+          <p class="card-text"><i class="far fa-clock pe-2"></i>{{crop.cropType}}</p>
+        </div>
+      </div>
+       <div class="card-body">
+        <div>
+          <label for="">User Id :</label>
+          {{crop.userId}}
+        </div>
+        <div>
+          <label for="">Available Quantity:</label>
+          {{crop.quanity}}
+        </div>
+        <div>
+          <label for=""> Location:</label>
+          {{crop.locationName}}
+        </div>
+        <div>
+          <label for=""> City</label>
+          {{crop.district}}
+        </div>
+        <div class="d-flex justify-content-between">
+         
+          <div>
+            <a [routerLink]="['/updatecrop', crop.cropId]"><i class="fa-solid fa-pen" data-mdb-toggle="tooltip"
+              data-mdb-placement="top" title="update this crop"></i></a> &nbsp;
+            
+            <i class="fa-solid fa-trash-can" data-mdb-toggle="tooltip" data-mdb-placement="top"
+              title="I like it" (click)="delete()"></i>
+          </div>
+        </div>
+      </div> 
+    </div> 
+  </div>
+  
+</div>
+<div
+        class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-dark">
+        <div class="text-white mb-3 mb-md-0">
+          <img src="./assets/images/logo4.jpg" class="rounded-circle me-3" height="50px"
+          width="50px" />
+             AgroApp Copyright © 2022. All rights reserved.
+        </div>
+      </div>

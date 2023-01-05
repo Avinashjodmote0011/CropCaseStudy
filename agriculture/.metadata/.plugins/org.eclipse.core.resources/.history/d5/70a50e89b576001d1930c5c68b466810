@@ -1,0 +1,135 @@
+package com.cropfield.project;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
+
+import com.cropfield.project.Model.Crop;
+import com.cropfield.project.exceptions.CropNotFoundException;
+import com.cropfield.project.repositories.CropRepository;
+import com.cropfield.project.service.CropService;
+import com.cropfield.project.service.CropServiceImpl;
+import com.cropfield.project.service.SequenceGeneratorService;
+
+
+@SpringBootTest
+public class CropfieldService {
+	
+//	@Autowired
+//	private MockMvc mockMvc;
+//	
+//	private Crop crop;
+//	private List<Crop> cropList;
+//	
+	@Autowired
+	private CropServiceImpl cropServiceImpl;
+	@MockBean
+	CropRepository cropRepository;
+	@Mock
+	SequenceGeneratorService generatorService;
+	
+	@Test
+	public void addCrop() {
+		Crop crop = new Crop(101,"Fruit","banana","10kg","724971714141","mandrup","goa","pune",411028,1002);
+		when(cropRepository.insert(crop)).thenReturn(crop);
+		assertEquals(crop,cropServiceImpl.addCrop(crop));
+	}
+	
+	@Test
+	public void viewAllCrop() {
+		when(cropRepository.findAll()).thenReturn(Stream.of(
+				new Crop(101,"Fruit","banana","10kg","724971714141","mandrup","goa","pune",411028,1002),
+				new Crop(102,"Fruit","apple","10kg","724971714141","mandrup","goa","pune",411028,1002))
+				.collect(Collectors.toList()));
+				assertEquals(2,cropServiceImpl.getAllCropDetails().size());
+	}
+	
+
+	
+	@Test
+	void testgetCropbyId() throws CropNotFoundException { //pass
+		
+		Crop crop = new Crop();
+		crop.setCropId(101);
+		crop.setCropType("fruit");
+		crop.setCropName("apple");
+		crop.setQuanity("10kg");
+		crop.setLocationName("mandrup");
+		crop.setState("maharashtra");
+		crop.setDistrict("pune");
+		crop.setPincode(411048);
+		
+		when(cropRepository.findByCropId(101)).thenReturn(crop);
+		Crop crops = cropServiceImpl.getCropbyId(101);
+		assertEquals(101, crops.getCropId());
+	}
+	
+	@Test
+	void testgetCropbyType() throws CropNotFoundException {
+		
+		when(cropRepository.findByCropType("Fruit")).thenReturn(Stream.of(
+				new Crop(101,"Fruit","banana","10kg","724971714141","mandrup","goa","pune",411028,1002),
+				new Crop(102,"Fruit","apple","10kg","724971714141","mandrup","goa","pune",411028,1002))
+				.collect(Collectors.toList()));
+		assertEquals(2, cropServiceImpl.getCropbyType("Fruit").size());
+	}
+	
+	@Test
+	void testgetbyCropName() throws CropNotFoundException { //red
+
+		when(cropRepository.findByCropName("apple")).thenReturn(Stream.of(
+				new Crop(101,"Fruit","apple","10kg","724971714141","mandrup","goa","pune",411028,1002),
+				new Crop(102,"Fruit","apple","10kg","724971714141","mandrup","goa","pune",411028,1002))
+				.collect(Collectors.toList()));
+		assertEquals(2, cropServiceImpl.getbyCropName("Fruit").size());
+	
+	}
+	
+	@Test
+	void testdeleteCrop() throws CropNotFoundException { //pass
+		Crop crop = new Crop();
+		crop.setCropId(101);
+		crop.setCropType("fruit");
+		crop.setCropName("apple");
+		crop.setQuanity("10kg");
+		crop.setLocationName("mandrup");
+		crop.setState("maharashtra");
+		crop.setDistrict("pune");
+		crop.setPincode(411048);
+		
+		when(cropRepository.findByCropId(101)).thenReturn(crop);
+		cropServiceImpl.deleteCrop(101);
+	}
+	
+	@Test
+	void testUpdateCrop() {
+		
+		Crop crop = new Crop();
+		crop.setCropId(101);
+		crop.setCropName("apple");
+		crop.setCropType("fruit");
+		crop.setLocationName("hadapsar");
+		crop.setQuanity("50kg");
+		when(cropRepository.save(crop)).thenReturn(crop);
+		assertEquals("hadapsar",crop.getLocationName());
+	}
+	
+//	@Test
+//	public void Crop(int cropId, String cropType, String cropName, String quanity, String locationName, String country,
+//			String state, String district, String mandal, int pincode) {
+//		
+//	}
+}

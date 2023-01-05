@@ -1,0 +1,64 @@
+<div id="app">
+    <nav class="navbar navbar-expand-sm  navbar-light" id="neubar">
+      <a href="/home" class="navbar-brand">AgroApp</a>
+      <a class="navbar-brand" href="/home"><img src="./assets/images/logo4.jpg" class="rounded-circle me-3" height="50px"
+        width="50px" /></a>
+      <ul class="navbar-nav mr-auto" routerLinkActive="active" id="nav-item">
+        <li class="nav-item">
+          <a href="/home" class="nav-link" routerLink="home">Home </a>
+        </li>
+        <li class="nav-item" *ngIf="showAdminBoard">
+          <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
+        </li>
+        <li class="nav-item" *ngIf="showAdminBoard">
+          <a href="/viewallcrop" class="nav-link" routerLink="viewallcrop">View Crop</a>
+        </li>
+        <li class="nav-item" *ngIf="showAdminBoard">
+          <a href="/viewalluser" class="nav-link" routerLink="viewalluser">View User</a>
+        </li>
+        <li class="nav-item" *ngIf="showDealerDashboard">
+          <a href="/Dealer" class="nav-link" routerLink="dealer">Dealer Board</a>
+        </li>
+        <li class="nav-item" *ngIf="showDealerDashboard">
+          <a href="/viewallcrop" class="nav-link" routerLink="viewallcrop">View Crop</a>
+        </li>
+        <li class="nav-item" *ngIf="showDealerDashboard">
+          <a href="/viewalluser" class="nav-link" routerLink="viewalluser">View User</a>
+        </li>
+        <li class="nav-item" *ngIf="showFarmerDashboard">
+            <a href="/farmer" class="nav-link" routerLink="farmer">Farmer Board</a>
+          </li>
+          <li class="nav-item" *ngIf="showFarmerDashboard">
+            <a href="/viewallcrop" class="nav-link" routerLink="viewallcrop">View All Crop</a>
+          </li>
+          <li class="nav-item" *ngIf="showFarmerDashboard">
+            <a href="/addcrop" class="nav-link" routerLink="addcrop">Add Crop</a>
+          </li>
+          <li class="nav-item" *ngIf="showFarmerDashboard">
+            <a href="/getcropbyuser/:id" class="nav-link" routerLink="getcropbyuser/:id">Your Crop</a>
+          </li>
+      </ul>
+  
+      <ul class="navbar-nav ms-auto " *ngIf="!isLoggedIn">
+        <li class="nav-item">
+          <a href="/signup" class="nav-link" routerLink="signup">Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a href="/login" class="nav-link" routerLink="login">Login</a>
+        </li>
+      </ul>
+  
+      <ul class="navbar-nav ms-auto" *ngIf="isLoggedIn">
+        <li class="nav-item">
+          <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+        </li>
+        <li class="nav-item">
+          <a href class="nav-link" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+    </nav>
+  
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </div>

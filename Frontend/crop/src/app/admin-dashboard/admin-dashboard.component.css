@@ -1,0 +1,27 @@
+.navbar{
+    position: sticky;
+    top: 0;
+    background-color: transparent;
+}
+
+body, html{
+    height: 100%;
+    margin: 0;
+  }
+  *{
+    box-sizing: border-box;
+  }
+.bg-img{
+    background-image: url('/assets/images/dashboard.webp');
+    width: auto;
+    min-height: 600px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  margin: 0px;
+  padding: 0px;
+  margin-left: -80px;
+  margin-right: -80px;
+  margin-top: -20px;
+  
+}

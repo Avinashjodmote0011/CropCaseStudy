@@ -1,0 +1,225 @@
+package com.cropfield.project;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
+
+import com.cropfield.project.Model.Crop;
+import com.cropfield.project.exceptions.CropNotFoundException;
+import com.cropfield.project.repositories.CropRepository;
+import com.cropfield.project.service.CropService;
+import com.cropfield.project.service.CropServiceImpl;
+import com.cropfield.project.service.SequenceGeneratorService;
+
+@SpringBootTest
+public class CropfieldService {
+	
+	@Autowired
+	private MockMvc mockMvc;
+	
+	private Crop crop;
+	private List<Crop> cropList;
+	@Autowired
+	private CropServiceImpl cropServiceImpl;
+	@MockBean
+	CropRepository cropRepository;
+	@Mock
+	SequenceGeneratorService generatorService;
+	
+	
+	
+	
+	@Test
+	void testaddCrop() {
+		
+		Crop crop1 = new Crop();
+		crop1.setCropId(101);
+		crop1.setCropType("fruit");
+		crop1.setCropName("apple");
+		crop1.setQuanity("10kg");
+		crop1.setPhoneNumber("7249714141");
+		crop1.setLocationName("mandrup");
+		crop1.setState("maharashtra");
+		crop1.setDistrict("pune");
+		crop1.setPincode(411048);
+		crop1.setUserId(1002);
+		
+		when(cropRepository.save(crop1)).thenReturn(crop1);
+		Crop newCrop = cropServiceImpl.addCrop(crop1);
+		//assertNotNull(newCrop);
+		assertEquals("apple",newCrop.getCropName());
+		
+	}
+	
+	@Test
+	void testgetAllCropDetails() {
+		
+		Crop crop1 = new Crop();
+		crop1.setCropId(generatorService.generateSequence(Crop.sequence_Name));
+		crop1.setCropType("fruit");
+		crop1.setCropName("apple");
+		crop1.setQuanity("10kg");
+		crop1.setPhoneNumber("7249714141");
+		crop1.setLocationName("mandrup");
+		crop1.setState("maharashtra");
+		crop1.setDistrict("pune");
+		crop1.setPincode(411048);
+		crop1.setUserId(1002);
+		
+		Crop crop2 = new Crop();
+		crop2.setCropId(generatorService.generateSequence(Crop.sequence_Name));
+		crop2.setCropType("fruit");
+		crop2.setCropName("orange");
+		crop2.setQuanity("10kg");
+		crop2.setPhoneNumber("7249714141");
+		crop2.setLocationName("hadapsar");
+		crop2.setState("maharashtra");
+		crop2.setDistrict("pune");
+		crop2.setPincode(411048);
+		crop2.setUserId(1002);
+		
+		List<Crop> viewAll = new ArrayList<>();
+		viewAll.add(crop1);
+		viewAll.add(crop2);
+		
+		when(cropRepository.findAll()).thenReturn(viewAll);
+		List<Crop> crops = cropServiceImpl.getAllCropDetails();
+		assertEquals(2, crops.size());
+	}
+	
+	@Test
+	void testgetCropbyId() throws CropNotFoundException {
+		
+		Crop crop = new Crop();
+		crop.setCropId(101);
+		crop.setCropType("fruit");
+		crop.setCropName("apple");
+		crop.setQuanity("10kg");
+		crop.setLocationName("mandrup");
+		crop.setState("maharashtra");
+		crop.setDistrict("pune");
+		crop.setPincode(411048);
+		
+		when(cropRepository.findByCropId(101)).thenReturn(crop);
+		Crop crops = cropServiceImpl.getCropbyId(101);
+		assertEquals(101, crops.getCropId());
+	}
+	
+	@Test
+	void testgetCropbyType() throws CropNotFoundException {
+		
+		Crop crop1 = new Crop();
+		crop1.setCropId(generatorService.generateSequence(Crop.sequence_Name));
+		crop1.setCropType("fruit");
+		crop1.setCropName("apple");
+		crop1.setQuanity("10kg");
+		crop1.setPhoneNumber("7249714141");
+		crop1.setLocationName("mandrup");
+		crop1.setState("maharashtra");
+		crop1.setDistrict("pune");
+		crop1.setPincode(411048);
+		crop1.setUserId(1002);
+		
+		Crop crop2 = new Crop();
+		crop2.setCropId(generatorService.generateSequence(Crop.sequence_Name));
+		crop2.setCropType("fruit");
+		crop2.setCropName("orange");
+		crop2.setQuanity("10kg");
+		crop2.setPhoneNumber("7249714141");
+		crop2.setLocationName("hadapsar");
+		crop2.setState("maharashtra");
+		crop2.setDistrict("pune");
+		crop2.setPincode(411048);
+		crop2.setUserId(1002);
+		
+		List<Crop> viewAll = new ArrayList<>();
+		viewAll.add(crop1);
+		viewAll.add(crop2);
+		
+		when(cropRepository.findAll()).thenReturn(viewAll);
+		List<Crop> crops = cropServiceImpl.getCropbyType("fruit");
+		assertEquals(2, crops.size());
+	}
+	
+	@Test
+	void testgetbyCropName() throws CropNotFoundException {
+		
+		Crop crop = new Crop();
+		crop.setCropId(generatorService.generateSequence(Crop.sequence_Name));
+		crop.setCropType("fruit");
+		crop.setCropName("apple");
+		crop.setQuanity("10kg");
+		crop.setLocationName("mandrup");
+		crop.setState("maharashtra");
+		crop.setDistrict("pune");
+		crop.setPincode(411048);
+		
+
+		Crop crop2 = new Crop();
+		crop2.setCropId(generatorService.generateSequence(Crop.sequence_Name));
+		crop2.setCropType("fruit");
+		crop2.setCropName("orange");
+		crop2.setQuanity("10kg");
+		crop2.setPhoneNumber("7249714141");
+		crop2.setLocationName("hadapsar");
+		crop2.setState("maharashtra");
+		crop2.setDistrict("pune");
+		crop2.setPincode(411048);
+		crop2.setUserId(1002);
+		
+		List<Crop> viewAll = new ArrayList<>();
+		viewAll.add(crop);
+		viewAll.add(crop2);
+		
+		when(cropRepository.findAll()).thenReturn(viewAll);
+		List<Crop> crops = cropServiceImpl.getbyCropName("apple");
+		assertEquals(2, crops.size());
+	
+	}
+	
+	@Test
+	void testdeleteCrop() throws CropNotFoundException {
+		Crop crop = new Crop();
+		crop.setCropId(101);
+		crop.setCropType("fruit");
+		crop.setCropName("apple");
+		crop.setQuanity("10kg");
+		crop.setLocationName("mandrup");
+		crop.setState("maharashtra");
+		crop.setDistrict("pune");
+		crop.setPincode(411048);
+		
+		when(cropRepository.findByCropId(101)).thenReturn(crop);
+		cropServiceImpl.deleteCrop(101);
+	}
+	
+	@Test
+	void testUpdateCrop() {
+		
+		Crop crop = new Crop();
+		crop.setCropId(101);
+		crop.setCropName("apple");
+		crop.setCropType("fruit");
+		crop.setLocationName("hadapsar");
+		crop.setQuanity("50kg");
+		when(cropRepository.save(crop)).thenReturn(crop);
+		assertEquals("hadapsar",crop.getLocationName());
+	}
+	
+//	@Test
+//	public void Crop(int cropId, String cropType, String cropName, String quanity, String locationName, String country,
+//			String state, String district, String mandal, int pincode) {
+//		
+//	}
+}

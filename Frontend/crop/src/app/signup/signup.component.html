@@ -1,0 +1,77 @@
+<section>
+  
+</section>
+
+<section class="vh-100" id="sec" >
+  <form [formGroup]="addUserFrom" (ngSubmit)="onSubmit()" id="myForm" >
+    
+
+    <div class="container"  ><br>
+      <h1 id="title">Registration</h1>
+      <div class="row d-flex justify-content-center align-itemsfa-pull-right h-100" >
+        <div class="col-sm-3 col-sm-4 col-sm-3">
+
+
+          <div class="form-outline mb-3" >
+            <label class="form-label" for="form3Example4cdg">User Name :</label>
+              <input type="text" id="username" name="username" class="form-control form-control-lg"
+              formControlName="username" (keypress)="letterOnly($event)" placeholder="User Name" autofocus autocomplete="off"/>
+              <span *ngIf="!username?.valid && (username?.dirty || username?.touched)" style="color: red;">
+                username required</span>
+
+            <label class="form-label" for="form3Example4cdg">Email Id:</label>
+            <input type="email" id="email" class="form-control form-control-lg" formControlName="email" 
+              placeholder="Email" autocomplete="off"/>
+              <span *ngIf="!email?.valid && (email?.dirty || email?.touched)" style="color: red;">
+                Email required</span>
+                 <label class="form-label" for="form3Example4cdg">Role:</label>
+            <select class="form-select" aria-label="Default select example" formControlName="roles">
+              <option selected value="">farmer</option>
+              <option value="">dealer</option>
+            </select>
+            <div *ngIf="!roles?.valid && (roles?.dirty || roles?.touched)">
+              <div [hidden]="!roles?.errors?.['required']">
+                roles is require
+              </div>
+            </div>
+
+
+            <label class="form-label" for="form3Example3cg">Password</label>
+            <input type="password" id="password" class="form-control form-control-lg" formControlName="password" 
+            placeholder="Password"/>
+            <span *ngIf="!password?.valid && (password?.dirty || password?.touched)" style="color: red;">
+              password required</span>
+
+            <label class="form-label" for="form3Example4cdg">Mobile No:</label>
+            <input type="tel" id="phoneNumber" class="form-control form-control-lg" formControlName="phoneNumber"
+              (keypress)="keyPressNumbers($event)" placeholder="Contact number"autocomplete="off"/>
+            
+              <span *ngIf="!phoneNumber?.valid && (phoneNumber?.dirty || phoneNumber?.touched)" style="color: red;">
+                Contact Number required</span>
+            <br>
+            
+            <div class="d-flex justify-content-between align-items-center">
+              <button type="submit" [disabled]="addUserFrom.invalid" class="btn btn-primary btn-lg"
+                style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
+              
+              
+            </div>
+            <div>
+              <p class="text-center text-muted mt-2 mb-0">Have already an account? <a href="/login"
+                class="fw-bold text-body">Login</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+
+<div
+        class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-dark" id="myfooter">
+        <div class="text-white mb-3 mb-md-0">
+          <img src="./assets/images/logo4.jpg" class="rounded-circle me-3" height="50px"
+          width="50px" />
+             AgroApp Copyright © 2022. All rights reserved.
+        </div>
+      </div>

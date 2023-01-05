@@ -1,0 +1,25 @@
+#sec{
+    background-image:url(https://cdn.pixabay.com/photo/2016/11/21/16/40/agriculture-1846358__480.jpg);  
+    background-repeat: no-repeat ; 
+    height: 400px;
+    background-position: center;
+    background-size: cover;
+    margin: 0px;
+    padding: 0px;
+    margin-left: -80px;
+    margin-right: -80px;
+    margin-top: -20px;
+}
+#myfooter{
+    margin-left: -80px;
+    margin-right: -80px;
+}
+#backbtn{
+    margin: 0px;
+    padding: 0px;
+    margin-left: -190px;
+    margin-right: -80px;
+  }
+  #crop{
+    color: rgb(234, 234, 126);
+  }

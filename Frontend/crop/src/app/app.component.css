@@ -1,0 +1,28 @@
+#mynav{
+    position: sticky;
+    top: 0;
+    background-color: transparent;
+    color: blue ;
+}
+#neubar{
+    background: #78e45d;
+    /* box-shadow: 4px 6px 12px rgb(43, 42, 42); */
+}
+.active , .nav-item{
+    border-radius: 6px;
+    background: linear-gradient(145deg, #8de565,#f5b2b2);
+    /* box-shadow:  4px 4px 8px #d80000, */
+    /* -4px -4px 8px #73ca08; */
+}
+
+  #neubar .nav-item {
+    margin : auto 2px;
+  }
+  #neubar a {
+   
+    padding-left:6px;
+    padding-right:2px;
+  }
+  a.navbar-brand {
+    color: #008d38
+  }

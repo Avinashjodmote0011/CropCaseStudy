@@ -1,0 +1,38 @@
+package com.bankdetails;
+
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.bankdetails.Models.BankDetails;
+import com.bankdetails.controller.BankController;
+import com.bankdetails.service.BankService;
+
+@ExtendWith(MockitoExtension.class)
+public class BankControllerTest {
+
+	@Autowired
+	private MockMvc mockMvc;
+	
+	@Mock
+	private BankService bankService;
+	private BankDetails bankDetails;
+	private List<BankDetails> bankDetailsList;
+	
+	@InjectMocks
+	private BankController bankController;
+	
+	@BeforeEach
+	public void setUp() {
+		bankDetails = new BankDetails(1122334455l, "Avinash", "Bank Of India", "Haveli,Pune", "IFSC000123", 20000.0);
+		mockMvc = MockMvcBuilders.standaloneSetup(bankController).build(); 
+	}
+	
+}

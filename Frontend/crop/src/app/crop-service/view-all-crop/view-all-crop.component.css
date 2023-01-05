@@ -1,0 +1,49 @@
+body {
+    background-color: #f5f7fa;
+  }
+  
+  .fas.fa-heart:hover {
+    color: #f44336 !important;
+  }
+  
+  .fas.fa-share-alt:hover {
+    color: #0d47a1 !important;
+    
+  }
+  .btn{
+    background: #93ced4;
+  }
+  #myclass{
+    background-color: #6EB800;
+  }
+  #cardbg{
+    background-color:azure !important;
+}
+#cardbody{
+  background-color:azure !important;
+  text-align:left;
+  text-transform: capitalize;
+  color:green;
+}
+
+
+/* css for title text  */
+#titleText{
+  
+  font-size: larger;
+  color:rgb(0, 0, 0);
+  /* text-shadow:1px 1px 1px red; */
+
+
+} 
+
+#cardbody:hover {
+  color: black;
+  font-size: large;
+  border-radius: 6px;
+  background: linear-gradient(145deg, #8de565,#f5b2b2);
+}
+#myfooter{
+  margin-left: -80px;
+  margin-right: -80px;
+}

@@ -1,0 +1,109 @@
+
+<section class="h-100 " id="sec">
+  <form [formGroup]="addCropForm" (ngSubmit)="onSubmit()">
+    <div class="container ">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        
+        <div class="col">
+          
+          <!-- <div class="card card-registration my-6"> -->
+          <div class="row g-0">
+            <div class="col-xl-6">
+              <div class="card-body p-md-5 text-black ">
+                <h3 class="mb-5 text-uppercase">Add Crop</h3>
+                <div class="col-md-6 mb-4">
+                  <label class="form-label" for="form3Example97">Userid</label>
+                  <input type="text" id="form3Example97" class="form-control form-control-lg" formControlName="userId"
+                    placeholder="UserId" required [(ngModel)]="userId" readonly/>
+                   
+
+                </div>
+                <label class="form-label" for="form3Example97">Crop Type:</label>
+                <select class="form-select" aria-label="Default select example" formControlName="cropType" >
+                  <option value="" disabled selected>Select Crop Type</option>
+                  <option value ="fruit" aria-required="true">Fruit</option>
+                  <option value="vegatable">Vegatable</option>
+                  <option value="flower">Flower</option>
+                </select>
+                <span *ngIf="!cropType?.valid && (cropType?.dirty || cropType?.touched)" style="color: red;">Crop Type
+                  is required</span><br>
+
+                <div class="row">
+
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <input type="text" id="cropname" class="form-control form-control-lg" formControlName="cropName"
+                        required placeholder="Crop Name" (keypress)="letterOnly($event)"/>
+                      <span *ngIf="!cropName?.valid && (cropName?.dirty || cropName?.touched)" style="color: red;">Crop
+                        Name is required</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-4">
+                    <input type="text" id="form3Example99" class="form-control form-control-lg" formControlName="phoneNumber"
+                      required placeholder="Contact" (keypress)="keyPressNumbers($event)" />
+                    <span *ngIf="!phoneNumber?.valid && (phoneNumber?.dirty || phoneNumber?.touched)" style="color: red;">
+                      Contact Number required</span>
+                    </div>
+
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <input type="text" id="form3Example1n" class="form-control form-control-lg"
+                        formControlName="quanity" required placeholder="eg. 100 kg" />
+                      <span *ngIf="!quanity?.valid && (quanity?.dirty || quanity?.touched)" style="color: red;">Crop
+                        Quantity is required</span>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-6 mb-4">
+                    <input type="text" id="form3Example8" class="form-control form-control-lg"
+                      formControlName="locationName" required placeholder="Location" />
+                    <span *ngIf="!locationName?.valid && (locationName?.dirty || locationName?.touched)"
+                      style="color: red;">Location Name is required</span>
+                    </div>
+                  
+                  <div class="col-md-6 mb-4">
+                    <input type="text" id="form3Example90" class="form-control form-control-lg"
+                      formControlName="district" required placeholder="City"  (keypress)="letterOnly($event)"/>
+                    <span *ngIf="!district?.valid && (district?.dirty || district?.touched)" style="color: red;">City is
+                      required</span>
+                    </div>
+                  <div class="col-md-6 mb-4">
+                    <input type="text" id="form3Example9" class="form-control form-control-lg" formControlName="state"
+                      required placeholder="State" />
+                    <span *ngIf="!state?.valid && (state?.dirty || state?.touched)" style="color: red;">state is
+                      required</span>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4">
+                    <input type="text" id="form3Example97" class="form-control form-control-lg"
+                      formControlName="pincode" required placeholder="Pincode" ng-model="pincode" ng-minlength="6" 
+                      (keypress)="keyPressNumbers($event)"/>
+                    <span *ngIf="!pincode?.valid && (pincode?.dirty || pincode?.touched)"
+                      [hidden]="!pincode?.errors?.['required']" style="color: red;">pincode is required</span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-end pt-3">
+                      <button type="button" (click)="back()" class="btn btn-danger btn-lg ms-2">Cancel</button>
+                    <button type="submit" [disabled]="addCropForm.invalid" class="btn btn-warning btn-lg ms-2">Save</button>
+                     </div>
+                    
+                    </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+<div
+        class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-dark" id="myfooter">
+        <div class="text-white mb-3 mb-md-0">
+          <img src="./assets/images/logo4.jpg" class="rounded-circle me-3" height="50px"
+          width="50px" />
+             AgroApp Copyright © 2022. All rights reserved.
+        </div>
+      </div>

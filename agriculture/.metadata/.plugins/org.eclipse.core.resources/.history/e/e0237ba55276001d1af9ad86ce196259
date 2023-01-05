@@ -1,0 +1,45 @@
+package com.cropfield.project;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.web.client.RestTemplate;
+
+import com.cropfield.project.Model.Crop;
+import com.cropfield.project.repositories.CropRepository;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class CropTestController {
+	
+	@LocalServerPort
+	private int port;
+	
+	@Autowired
+	private CropRepository cropRepository;
+	
+	private String baseUrl="http://localhost";
+	
+	private static RestTemplate restTemplate;
+	
+	@BeforeAll
+	public static void init() {
+		restTemplate = new RestTemplate();
+	}
+	
+	@BeforeEach
+	public void steUp() {
+		baseUrl=baseUrl.concat(":").concat(port+"").concat("/crop");
+	}
+	
+	@Test
+	public void testAdd() { 
+		Crop crop = new Crop(101,"Fruit","Banana","10kg","7249714141","maharashtra","mandrup","solapur",413221,1001);
+		Crop response = restTemplate.postForObject(baseUrl, crop, Crop.class);
+		assertEquals("Banana", response.getCropName());
+	}
+}

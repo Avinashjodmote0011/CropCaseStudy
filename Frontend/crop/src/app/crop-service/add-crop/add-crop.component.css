@@ -1,0 +1,22 @@
+#sec{
+    background-image:url('/assets/images/addcropbg.jpg');  
+    background-repeat: no-repeat ; 
+    height: 400px;
+    background-position: center;
+    background-size: cover;
+    margin: 0px;
+    padding: 0px;
+    margin-left: -80px;
+    margin-right: -80px;
+    margin-top: -20px;
+}
+#myfooter{
+    margin-left: -80px;
+    margin-right: -80px;
+  }
+  #backbtn{
+    margin: 0px;
+    padding: 0px;
+    margin-left: -190px;
+    margin-right: -80px;
+  }

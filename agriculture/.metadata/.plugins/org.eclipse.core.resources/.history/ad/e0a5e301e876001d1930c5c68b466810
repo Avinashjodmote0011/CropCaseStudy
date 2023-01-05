@@ -1,0 +1,85 @@
+package com.cropfield.project;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.cropfield.project.Model.Crop;
+import com.cropfield.project.controller.CropController;
+import com.cropfield.project.service.CropService;
+import com.cropfield.project.service.SequenceGeneratorService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@ExtendWith(MockitoExtension.class)
+public class CropTestController {
+	
+	@Autowired
+	private MockMvc mockMvc;
+	
+	@Mock
+	private CropService cropService;
+	private Crop crop;
+	private List<Crop> cropList;
+	
+	@Autowired
+	private SequenceGeneratorService generatorService;
+	
+	@InjectMocks
+	private CropController cropController;
+	
+	@BeforeEach
+	public void setUp() {
+		crop = new Crop(101,"Fruit","apple","10kg","724971714141","mandrup","goa","pune",411028,1002);
+		mockMvc = MockMvcBuilders.standaloneSetup(cropController).build();
+	}
+	
+	@Test
+	void addCropTest() throws Exception {
+		when(cropService.addCrop(any())).thenReturn(crop);
+		mockMvc.perform(post("/crop/add")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(crop)))
+				.andExpect(status().isCreated());
+		verify(cropService, times(1)).addCrop(any());
+		
+	}
+	
+	@Test
+	void viewAllCropTest() throws Exception{
+		when(cropService.getAllCropDetails()).thenReturn(cropList);
+		mockMvc.perform(MockMvcRequestBuilders.get("/crop/viewAll")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(crop)))
+				.andDo(MockMvcResultHandlers.print());
+				verify(cropService,times(1)).getAllCropDetails();
+												
+	}
+	
+	public static String asJsonString(final Object obj) {
+		try {
+			final ObjectMapper mapper = new ObjectMapper();
+			final String jsonContent = mapper.writeValueAsString(obj);
+			return jsonContent;
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+}

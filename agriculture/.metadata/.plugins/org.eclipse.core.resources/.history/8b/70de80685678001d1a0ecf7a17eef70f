@@ -1,0 +1,129 @@
+package com.cropfield.project.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.stereotype.Service;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
+import com.cropfield.project.Model.Crop;
+import com.cropfield.project.Model.CropDto;
+import com.cropfield.project.exceptions.CropNotFoundException;
+import com.cropfield.project.exceptions.UserNotFoundException;
+import com.cropfield.project.repositories.CropRepository;
+
+@Service
+public class CropServiceImpl implements CropService {
+	
+	Logger logger =LoggerFactory.getLogger(CropServiceImpl.class);
+	@Autowired
+	public CropRepository crp;
+	
+	@Autowired
+	MongoOperations mongoOperations;
+	
+	@Autowired
+	SequenceGeneratorService generatorService;
+
+	@Override
+	public Crop addCrop(Crop crop) {
+		
+		crop.setCropId(generatorService.generateSequence(Crop.sequence_Name));
+		crp.save(crop);
+
+		return crop;
+	}
+
+	@Override
+	public String UpdateCrop(CropDto cropdto) throws CropNotFoundException {
+		Crop c = crp.findByCropId(cropdto.getCropId());
+		if(c!=null) {
+		c.setCropName(cropdto.getCropName());
+		c.setCropType(cropdto.getCropType());
+		c.setLocationName(cropdto.getLocationName());
+		c.setQuanity(cropdto.getQuanity());
+		c.setPhoneNumber(cropdto.getPhoneNumber());
+		c.setDistrict(cropdto.getDistrict());
+		c.setState(cropdto.getState());
+		c.setPincode(cropdto.getPincode());
+		crp.save(c);
+		
+		return "updated successfully";
+		}
+		else 
+			throw new CropNotFoundException("crop is not found ,create a crop ");
+	}
+
+	@Override
+	public List<Crop> getAllCropDetails() throws NullPointerException {
+		List<Crop> list = new ArrayList<Crop>();
+		list.addAll(crp.findAll());
+		if (list.isEmpty()) {
+			throw new NullPointerException("list is empty");
+
+		} else {
+			return list;
+		}
+	}
+
+	@Override
+	public Crop getCropbyId(int id) throws CropNotFoundException {
+		Crop c = crp.findByCropId(id);
+		if (c != null) {
+			return c;
+		} else {
+			throw new CropNotFoundException("No such crop is found in the database");
+		}
+
+	}
+
+	@Override
+	public String deleteCrop(int id) throws CropNotFoundException {
+		
+		Crop c = crp.findByCropId(id);
+		crp.deleteById(c.getCropId());
+
+		return "deleted sucessfully";
+
+	}
+
+	@Override
+	public List<Crop> getCropbyType(String croptype) throws CropNotFoundException {
+		List<Crop> c = crp.findByCropType(croptype);
+		if (c.isEmpty()) {
+			throw new NullPointerException("list is empty");
+
+		} else {
+			return c;
+		}
+	}
+
+	@Override
+	public List<Crop> getbyCropName(String name) throws CropNotFoundException {
+		List<Crop> c = crp.findByCropName(name);
+		if (c.isEmpty()) {
+			throw new CropNotFoundException("list is empty");
+
+		} else {
+			return c;
+		}
+	}
+
+	@Override
+	public List<Crop> getbyuserId(int id) throws UserNotFoundException {
+
+		List<Crop> c = crp.findByUserId(id);
+
+		if (c.isEmpty()) {
+			throw new UserNotFoundException("NO such is there with that userId"+id);
+
+		} else {
+			return c;
+		}
+	}
+
+}

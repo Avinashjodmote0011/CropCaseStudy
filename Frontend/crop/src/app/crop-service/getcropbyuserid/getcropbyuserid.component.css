@@ -1,0 +1,32 @@
+#mybody{
+    background-color: azure !important;
+}
+
+
+.card{
+    margin: 0 auto;
+    max-width: 500px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill , minmax(225px,1fr));
+    gap: 20px;
+    text-transform: capitalize;
+
+}
+#cardbody{
+    background-color: azure !important;
+}
+#cardbg{
+    background-color:azure !important;
+}
+#myfooter{
+    margin-left: -80px;
+    margin-right: -80px;
+}
+#cardbody:hover {
+    text-align:left;
+    text-transform: capitalize;
+    color:green;
+    font-size: large;
+    border-radius: 6px;
+    background: linear-gradient(145deg, #8de565,#f5b2b2);
+  }

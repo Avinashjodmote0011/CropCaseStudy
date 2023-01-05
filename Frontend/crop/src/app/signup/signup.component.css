@@ -1,0 +1,21 @@
+#sec{
+    background-image: url(/assets/images/register.jpg) ;
+    background-repeat: no-repeat ; 
+    height: 200px;
+    background-position: left;
+    margin: 0px;
+    padding: 0px;
+    margin-left: -80px;
+    margin-right: -80px;
+    margin-top: -20px;
+}
+#title{
+    color:#697e3d;
+}
+#myfooter{
+    margin-left: -80px;
+    margin-right: -80px;
+}
+#myForm{
+  width: 1800px;
+}
